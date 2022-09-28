@@ -8,6 +8,20 @@ from .models import Product
 from .models import Order
 
 
+class AppAdminSite(admin.AdminSite):
+    site_header = 'SITE HEADER'
+    site_title = 'TITLE'
+    index_title = 'INDEX TITLE'
+
+
+
+appadmin = AppAdminSite(name='appadmin')
+
+class ProductTabularInline(admin.TabularInline):
+    model = Product
+
+
+
 @admin.action(description='Опубликовать')
 def make_published(self, request, queryset):
     queryset.update(is_published=True)
@@ -26,6 +40,7 @@ class CategoryAdmin(admin.ModelAdmin):
     actions = (make_published, make_unpublished)
     # search_fields = ('parent', 'id')
     search_help_text = 'Введите имя родительской категории или id категории'
+    inlines = (ProductTabularInline, )
 
 
 @admin.register(Product)
@@ -50,9 +65,12 @@ class ProductAdmin(admin.ModelAdmin):
          )
     )
     list_editable = ('category',)
+    prepopulated_fields = {'descr': ('title', 'article')}
+
 
 
 # admin.site.register(Category, CategoryAdmin)
+
 
 
 @admin.register(Order)
@@ -63,3 +81,8 @@ class OrderAdmin(admin.ModelAdmin):
     date_hierarchy = 'date_created'
     search_fields = ('is_paid', 'user', 'date_created')
     search_help_text = 'Введите имя пользователя, статус, дату создания'
+
+
+appadmin.register(Category, CategoryAdmin)
+appadmin.register(Product, ProductAdmin)
+appadmin.register(Order, OrderAdmin)
