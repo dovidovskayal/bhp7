@@ -85,9 +85,9 @@ class Order(models.Model):
                                         verbose_name='Дата')
     is_paid = models.BooleanField(default=False,
                                   verbose_name='оплачен')
-
-    def __str__(self):
-        return self.user
+    #
+    # def __str__(self):
+    #     return self.user
 
     class Meta:
         db_table = 'app_orders'
