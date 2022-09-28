@@ -32,7 +32,8 @@ class ProductAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     empty_value_display = 'N/a'
     list_display = ('user', 'product', 'date_created', 'is_paid')
-    list_filter = ('is_paid', 'user', 'date_created')
+    list_filter = ('is_paid',)
+    date_hierarchy = 'date_created'
     search_fields = ('is_paid', 'user', 'date_created')
     search_help_text = 'Введите имя пользователя, статус, дату создания'
 

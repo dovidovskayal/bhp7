@@ -3,6 +3,7 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 
@@ -25,7 +26,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
 
     class Meta:
         db_table = 'app_categories'
@@ -75,15 +75,14 @@ class Product(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(User,
-                             on_delete=models.PROTECT,
-                             null=True,
+                             on_delete=models.DO_NOTHING,
                              verbose_name='пользователь')
     product = models.ForeignKey('Product',
-                                on_delete=models.PROTECT,
-                                verbose_name='продукт')
+                                on_delete=models.DO_NOTHING,
+                                verbose_name='товар')
     date_created = models.DateTimeField(default=datetime.now,
                                         blank=True,
-                                        verbose_name='Дата публикации')
+                                        verbose_name='Дата')
     is_paid = models.BooleanField(default=False,
                                   verbose_name='оплачен')
 
@@ -94,4 +93,4 @@ class Order(models.Model):
         db_table = 'app_orders'
         verbose_name = 'заказ'
         verbose_name_plural = 'заказы'
-        ordering = ('user', 'date_created', 'is_paid')
+        ordering = ('date_created', 'is_paid')
