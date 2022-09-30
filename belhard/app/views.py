@@ -9,10 +9,19 @@ from django.shortcuts import render, get_object_or_404
 
 @require_GET
 def index(request: HttpRequest, category_id: int):
-    category = get_object_or_404(Category, id=category_id)
-    # if not category:
-    #     raise Http404
-    return HttpResponse('<b>HELLO</b>')
+    cat = get_object_or_404(Category, id=category_id)
+    # # if not category:
+    # #     raise Http404
+    # text =f'''
+    #
+    # Name: {category.name}</br>
+    # ID: {category.pk}</br>
+    # PARENT: {category.parent}</br>
+    #
+    #
+    # '''
+    # return HttpResponse(text)
+    return render(request, 'index.html', {'category': cat}, status=200)
 
 
 def error404(request, exception):
