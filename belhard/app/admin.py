@@ -17,6 +17,7 @@ class AppAdminSite(admin.AdminSite):
 
 appadmin = AppAdminSite(name='appadmin')
 
+
 class ProductTabularInline(admin.TabularInline):
     model = Product
 
