@@ -17,7 +17,7 @@ class YearConverter:
 register_converter(YearConverter, 'yyyy')
 
 urlpatterns = [
-    path('category/<int:category_id>', index),
+    path('', index),
 ]
 
 handler404 = 'app.views.error404'
